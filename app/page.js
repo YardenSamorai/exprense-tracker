@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import Header from "./_componant/Header";
 import Hero from "./_componant/Hero";
 import {
