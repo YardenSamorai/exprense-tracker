@@ -1,7 +1,23 @@
+'use client'
 import React from 'react'
 import Image from "next/image";
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 const Hero = () => {
+
+  const {user, isSignedIn, isLoaded} = useUser();
+  console.log(isSignedIn);
+  const router = useRouter();
+
+  const onClickChange = () => {
+    if(isSignedIn){
+      router.replace('/dashboard');
+    }
+    else {
+      router.replace('/dashboard/sign-in');
+    }
+  }
   return (
     <div>
         <section className="bg-gray-50 flex items-center flex-col">
@@ -18,9 +34,9 @@ const Hero = () => {
 
       <div className="mt-9 flex flex-wrap justify-center gap-4">
         <a
-          className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-800 focus:outline-none focus:ring active:bg-blue-700 sm:w-auto"
-          href="sign-in">
-          Get Started Now
+         onClick={onClickChange}
+          className="block w-full rounded bg-primary px-12 py-3 text-sm bg-blue-700 font-medium text-white shadow hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-700 sm:w-auto">
+           {isSignedIn ? 'Go to Dashboard' : 'Get Started Now'}
         </a>
       </div>
     </div>

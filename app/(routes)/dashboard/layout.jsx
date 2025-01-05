@@ -18,7 +18,6 @@ const DashBoardLayout = ({children}) => {
   .select()
   .from(Budget) // Corrected to use the `budget` table object
   .where(eq(Budget.createdBy, user?.primaryEmailAddress?.emailAddress));
-    console.log(result);
     if(result.length === 0){
       router.replace('/dashboard/budgets');
     }

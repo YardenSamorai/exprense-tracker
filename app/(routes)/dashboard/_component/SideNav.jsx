@@ -9,9 +9,6 @@ import Link from 'next/link';
 
 const Sidenav = () => {
     const pathName = usePathname();
-    useEffect(() => {
-        console.log(pathName);
-    }, [])
     const menuList = [{
         id: 1,
         name: "Dashboard",
