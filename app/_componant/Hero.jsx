@@ -7,9 +7,7 @@ import { useRouter } from 'next/navigation';
 const Hero = () => {
 
   const {user, isSignedIn, isLoaded} = useUser();
-  console.log(isSignedIn);
   const router = useRouter();
-
   const onClickChange = () => {
     if(isSignedIn){
       router.replace('/dashboard');

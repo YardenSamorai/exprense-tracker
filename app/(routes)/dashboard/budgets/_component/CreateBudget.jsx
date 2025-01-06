@@ -10,22 +10,25 @@ import { Budget } from '@/utils/db/schema';
 import { db } from '@/utils/db';
 import { useUser } from '@clerk/nextjs';
 
-const CreateBudget = () => {
+const CreateBudget = ({setBudgetList}) => {
     const [emojiIcon, setEmojiIcon] = useState('😊');
     const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
     const [name, setName] = useState();
     const [amount, setAmount] = useState();
     const { user } = useUser();
+
     const onCreateBudget = async () => {
-        const result = await db.insert(Budget).values({
+        const newBudget = {
             name: name,
             amount: amount,
             createdBy: user?.primaryEmailAddress?.emailAddress,
             icon: emojiIcon
-        }).returning({ insertedId: Budget.id })
+        }
+        const result = await db.insert(Budget).values(newBudget).returning({ insertedId: Budget.id })
 
         if (result) {
             toast("New Budget Created!");
+            setBudgetList(prev => [...prev, {...newBudget}]);
         }
     }
     return (
